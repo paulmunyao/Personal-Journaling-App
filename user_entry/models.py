@@ -16,3 +16,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class Summary(models.Model):
+    entry_count = models.IntegerField
+    category_count = models.ForeignKey(Category, on_delete=models.CASCADE)
+    date = models.DateTimeField
+
+    def __str__(self):
+        return self.entry_count

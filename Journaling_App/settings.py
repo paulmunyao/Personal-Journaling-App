@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'Journaling_App.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'journalapp',
+        'PASSWORD': 'SKIPPERMANCITY1998!',
+        'HOST': 'database-1.cr66wkyie9iz.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432'
     }
 }
 

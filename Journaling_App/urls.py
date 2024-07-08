@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('journal-entry/', include('user_entry.api.urls'))
     path('user-auth/', include('user_app.api.urls')),
-    path('user-profile/', include('user_profile.api.urls'))
+    path('user-profile/', include('user_profile.api.urls')),
+    
 ]

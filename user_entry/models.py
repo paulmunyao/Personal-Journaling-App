@@ -6,3 +6,6 @@ class JournalEntry(models.Model):
     content = models.TextField(max_length=1000)
     category = models.CharField(max_length=20)
     date = models.DateTimeField
+
+    def __str__(self):
+        return self.title

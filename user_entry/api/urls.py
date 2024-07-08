@@ -5,6 +5,7 @@ from user_entry.api.views import JournalEntryViewSet,CategoryViewSet
 router = DefaultRouter()
 router.register("journal entry", JournalEntryViewSet, basename="journal entry")
 router.register("category", CategoryViewSet, basename="category")
+router.register("summary",JournalEntryViewSet, basename="summary")
 
 urlpatterns = [
     path("", include(router.urls) ),

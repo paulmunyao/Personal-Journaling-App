@@ -1,34 +1,37 @@
-from rest_framework.decorators import api_view
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from user_app.api.serializers import RegistrationSerializer
-from user_app import models
+from user_app.api.serializers import DummySerializer
 
-# returning a newly created user with auth token
-@api_view(["POST",])
-def registration_view(request):
+class RegistrationView(generics.CreateAPIView):
+    serializer_class = RegistrationSerializer
 
-    if request.method == "POST":
-        serializer = RegistrationSerializer(data=request.data)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
 
-        data = {}
-        if serializer.is_valid():
-            account = serializer.save()
-            data['response'] = "Registrtaion Successful"
-            data['username'] = account.username
-            data['email'] = account.email
+        data = {
+            'response': "Registration Successful",
+            'username': user.username,
+            'email': user.email,
+            'token': Token.objects.get(user=user).key
+        }
 
-            token = Token.objects.get(user=account).key
-            data['token'] = token
-
-        else:
-            data = serializer.errors
         return Response(data, status=status.HTTP_201_CREATED)
 
-# logout view
-@api_view(["POST", ])
-def logout_view(request):
-    if request.method == "POST":
-        request.user.auth_token.delete()
-        return Response(status=status.HTTP_200_OK)
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = DummySerializer
+
+    def post(self, request, *args, **kwargs):
+        try:
+            request.user.auth_token.delete()
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -27,3 +27,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.save()
 
         return account
+
+class DummySerializer(serializers.Serializer):
+    pass

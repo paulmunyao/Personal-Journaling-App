@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: Personal Journal APP
+  version: 1.0.0
+  description: Backend service API for personal journaling
+paths:
+  /account/account/logout/:
+    post:
+      operationId: account_account_logout_create
+      tags:
+      - account
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /account/account/register/:
+    post:
+      operationId: account_account_register_create
+      tags:
+      - account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Registration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Registration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Registration'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
+          description: ''
+  /account/login/:
+    post:
+      operationId: account_login_create
+      tags:
+      - account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    Registration:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        password2:
+          type: string
+          writeOnly: true
+      required:
+      - password
+      - password2
+      - username
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

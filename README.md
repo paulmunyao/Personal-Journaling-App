@@ -15,7 +15,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Knight's Tour <a name="about-project"></a>
+# 📖 Personal Journal App <a name="about-project"></a>
 
 A backend service for personal journaling. Users should be able to write journal entries, categorize them, and view a summary of their entries.
 

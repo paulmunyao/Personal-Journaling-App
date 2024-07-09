@@ -46,7 +46,7 @@ Install Python & Django in your machine if you don't have
 Follow this documentation - https://www.python.org/ & https://www.djangoproject.com/
 
 
-### To access the API's and test them out do follow the following documentation:
+### To access the API's and test them out follow the following documentation:
 
  https://bump.sh/paulmunyao/doc/personal-journal-app/authentication - Authentication
 

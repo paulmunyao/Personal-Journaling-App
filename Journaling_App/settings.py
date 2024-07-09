@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'user_entry',
     'user_profile',
     'rest_framework',
+    'user_registration',
+    'rest_framework.authtoken',
     'django_filters',
 ]
 
@@ -81,6 +83,10 @@ WSGI_APPLICATION = 'Journaling_App.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'journal',
+        'USER': 'journalapp',
+        'PASSWORD': 'SKIPPERMANCITY1998!',
+        'HOST': '127.0.0.1',
         'NAME': 'postgres',
         'USER': 'journalapp',
         'PASSWORD': 'SKIPPERMANCITY1998!',
